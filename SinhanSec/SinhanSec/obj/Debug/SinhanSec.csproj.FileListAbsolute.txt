@@ -1,0 +1,3 @@
+C:\Users\User\Desktop\project\SinhanSec\SinhanSec\obj\Debug\SinhanSec.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\project\SinhanSec\SinhanSec\obj\Debug\Interop.GIExpertControl64Lib.dll
+C:\Users\User\Desktop\project\SinhanSec\SinhanSec\obj\Debug\Interop.GIEXPERTCONTROLLib.dll
