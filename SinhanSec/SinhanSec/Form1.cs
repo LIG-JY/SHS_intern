@@ -184,5 +184,12 @@ namespace SinhanSec
 
         }
 
+        private void Current_price_request_ReceiveData(object sender, AxGIExpertControl64Lib._DGIExpertControl64Events_ReceiveDataEvent e)
+        {
+            if (e is null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+        }
     }
 }
