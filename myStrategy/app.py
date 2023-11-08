@@ -35,7 +35,7 @@ class indiWindow(QMainWindow):
         print("hello app!")
         self.view_account()
 
-        # 60초마다 view_trade_history 함수를 호출하는 타이머 생성
+        # view_trade_history 함수를 호출하는 타이머 생성
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.view_trade_history)
         self.timer.start(60000)  # 60초(60,000 밀리초)마다 타이머 이벤트 발생
@@ -44,7 +44,7 @@ class indiWindow(QMainWindow):
         self.order()
 
         ## TODO: make UI screen
-        main_ui.pushButton.clicked.connect(lambda:self.order())
+        main_ui.pushButton.clicked.connect(lambda:self.bulkOrder())
         singleQueryTR.SetCallBack('ReceiveData', self.singleQueryTR_ReceiveData)
 
     
@@ -87,8 +87,7 @@ class indiWindow(QMainWindow):
 
         temp = start_price
         for i in range(count):
-            self.order()
-            # self.order(stock_code, str(order_quantity), str(temp))  # 지정가 변화 호출
+            self.order_target(stock_code, str(order_quantity), str(temp))  # 지정가 변화 호출
             temp -= int(price_change)
     
 
@@ -126,6 +125,41 @@ class indiWindow(QMainWindow):
         print('Request Data rqid: ' + str(rqid))
         self.rqidD[rqid] = TR_Name
     
+
+    # 주문하기
+    def order_target(self, code="A005930", quantity="1", price=""): 
+        print("주문 시도!")
+        TR_Name = "SABA101U1" # 매도/매수 XTR        
+        ret = singleQueryTR.SetQueryName(TR_Name)          
+        # print(singleQueryTR.GetErrorCode())
+        # print(singleQueryTR.GetErrorMessage())
+        ret = singleQueryTR.SetSingleData(0,self.account_code_text) #계좌번호
+        ret = singleQueryTR.SetSingleData(1,"01")  #계좌상품
+        ret = singleQueryTR.SetSingleData(2,self.pw_text) #계좌비번
+        ret = singleQueryTR.SetSingleData(3,"") 
+        ret = singleQueryTR.SetSingleData(4,"") 
+        ret = singleQueryTR.SetSingleData(5,"0") #선물대용매도여부
+        ret = singleQueryTR.SetSingleData(6,"00") #신용거래구분
+        ret = singleQueryTR.SetSingleData(7,"2") #매도/매수 구분 : 매수
+        ret = singleQueryTR.SetSingleData(8,code) #종목코드 저장된 클래스 불러오기
+        ret = singleQueryTR.SetSingleData(9,quantity) #주문 수량 저장된 클래스에서 불러오기
+        ret = singleQueryTR.SetSingleData(10,price) #주문 가격 저장된 클래스에서 불러오기 (시간 외 종가면 0)
+        ret = singleQueryTR.SetSingleData(11, "1") #정규시간외구분코드
+        ret = singleQueryTR.SetSingleData(12,"2") #호가유형코드 (기능 추가 최우선)  1. 시장가 2. 지정가 X.최유리
+        ret = singleQueryTR.SetSingleData(13,"0") #주문조건코드
+        ret = singleQueryTR.SetSingleData(14,"0") #신용대출통합주문구분코드
+        ret = singleQueryTR.SetSingleData(15,"") #신용대출일자
+        ret = singleQueryTR.SetSingleData(16,"") #원주문번호
+        ret = singleQueryTR.SetSingleData(17,"") 
+        ret = singleQueryTR.SetSingleData(18,"")
+        ret = singleQueryTR.SetSingleData(19,"")
+        ret = singleQueryTR.SetSingleData(20,"") #프로그램매매여부
+        ret = singleQueryTR.SetSingleData(21,"Y") #결과메시지 처리여부
+        rqid = singleQueryTR.RequestData()
+        print(type(rqid))
+        print('Request Data rqid: ' + str(rqid))
+        self.rqidD[rqid] = TR_Name
+
     ## 체결 내역 조회
     def view_trade_history(self):
         TR_Name = "SABA231Q1"             
