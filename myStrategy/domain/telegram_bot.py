@@ -4,7 +4,7 @@ from datetime import datetime
 class TelegramBot():
     def __init__(self):
         self.my_id = "5684099702"  # id
-        my_token = "6836280679:AAHqTH-tFBhilDlodg69mKraZHhEh2gC6dU"
+        my_token = "6836280679:AAHqTH-tFBhilDlodg69mKraZHhEh2gC6dU" # your token
         self.bot = telepot.Bot(token=my_token)
 
     def sendMessage(self, message):
