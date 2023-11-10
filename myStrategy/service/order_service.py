@@ -3,7 +3,6 @@ from PyQt5.QtCore import *
 from PyQt5.QAxContainer import *
 from PyQt5.QtWidgets import *
 import pandas as pd
-import datetime
 import GiExpertControl as singleQueryTR
 from ui.myUI import Ui_MainWindow
 from domain.telegram_bot import TelegramBot
