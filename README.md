@@ -1,5 +1,6 @@
 # SHS_intern
-SHS
+ShinhanSec 디렉토리 및 TelegramAPI_test 디렉토리는 C#으로 구현(미완성)
+myStrategy : Python 구현(제출본)
 
 테스트 계좌
 ACCOUNT : 27048031572
